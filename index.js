@@ -20,15 +20,6 @@ MongoClient.connect("mongodb://localhost:27017/test", function(err, db) {
     var collection = db.collection('test');
     collection.drop();
     collection = db.collection('test');
-    /*var doc1 = {'hello':'doc1'};
-    var doc2 = {'hello':'doc2'};
-    var lotsOfDocs = [{'hello':'doc3'}, {'hello':'doc4'}];
-
-    collection.insert(doc1);
-
-    collection.insert(doc2,  function(err, result) {});
-
-    collection.insert(lotsOfDocs, function(err, result) {});*/
     var stream = collection.find({}).stream();
     stream.on("data", function(item) {console.log(item)});
     stream.on("end", function() {});
@@ -39,7 +30,7 @@ MongoClient.connect("mongodb://localhost:27017/test", function(err, db) {
 var info;
 
 io.on('connection', function(socket){
-    socket.emit('open');  //通知客户端已连接
+    socket.emit('open');  
     for (x in online_user)
     {
         if (online_user[x])
