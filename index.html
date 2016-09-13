@@ -29,7 +29,7 @@
             filter:Alpha(opacity=0);
         }
 
-        
+        /*层2的样式*/
         .div2{
 
             width:15%;
@@ -82,7 +82,7 @@
         div2.style.left=body.clientWidth/2-div2.clientWidth/2;
     }
 
-    
+    //关闭显示
     function closeShow()
     {
         socket.emit('user dup' , $('#username').val());
@@ -107,7 +107,11 @@
 
     socket.on('open',function(){
 
-        
+        //load mysql here;
+        //$('#messages').append($('<li>').text('Please type your nickname:'));
+
+
+        //alert("Please type your nickname:");
     });
     $('form').submit(function(){
         socket.emit('chat message', $('#m').val());
@@ -116,6 +120,7 @@
     });
     socket.on('chat user' , function(msg)
     {
+        //$('#messages').append($('<litime>').text(new Date() + ':' + msg)));
         $('#messages').append($('<li>').text(msg + ':'));
     });
     socket.on('chat message', function(msg){

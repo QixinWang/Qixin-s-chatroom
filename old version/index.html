@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+    <title>noname's chatroom</title>
+    <style>
+        * { margin: 0; padding: 0; bottom: 0;box-sizing: border-box; }
+        body { font: 13px Helvetica, Arial; vertical-align: bottom}
+        form { background: #ffffff; padding: 80px; position: fixed; bottom: 0; width: 100%; }
+        form input { border: 0; padding: 40px; width:60%;position: absolute;
+            top:0;margin-left:20%;margin-right:20%;
+            margin-bottom: 60%; background: #66eeff;}
+        form button {style:"padding-bottom:10px"; width: 9%; background-color:rgb(62, 92, 255); border: none; padding: 20%; }
+        form button {style:"padding-bottom:10px"; width: 9%; background-color: rgb(101, 255, 155); border: none; padding: 10px;
+            position:absolute; bottom:5%; right:2%}
+        #messages { list-style-type: none; margin: 0; padding: 0;}
+        #messages li {padding: 5px 10px; }
+        #messages li:nth-child(odd) {}
+    </style>
+</head>
+<body>
+<ul id="messages"></ul>
+<form action="">
+    <input id="m" autocomplete="off" />
+    <button  style="background-color:rgb(62, 92, 255);color:white;position:absolute;top:50%; left:50%;" >Send</button>
+    <button class="am-btn am-btn-default am-btn-xs am-text-secondary" data-id="99"  data-type=1><span class="am-icon-pencil-square-o"></span>exit</button>
+</form>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    var myName = "Anonymous"
+    var socket= io('http://localhost:3000');
+    socket.on('open',function(){
+        $('#messages').append($('<li>').text('Please type your nickname:'));
+        //alert("Please type your nickname:");
+    });
+
+
+    $('form').submit(function(){
+        console.log(id);
+        socket.emit('chat message', $('#m').val());
+        console.log('msg sent');
+        $('#m').val('');
+        return false;
+    });
+
+    socket.on('chat message', function(msg) {
+        if (myName == "Anonymous") {
+
+            myName = msg;
+            $('#messages').append($('<li>').text(msg));
+        }
+        else
+            $('#messages').append($('<li>').text(msg));
+    });
+
+
+</script>
+</body>
+</html>
